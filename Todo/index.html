@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="style.css">
+   
+</head>
+
+<body>
+    <button class="toggle-mode" onclick="toggleMode()">Dark Mode</button>
+    <div class="container">
+        <h2>To-Do List</h2>
+        <input type="text" id="taskInput" placeholder="Add a new task">
+        <button class="add-btn" onclick="addTask()">Add</button>
+        <ul id="taskList"></ul>
+    </div>
+    <script>
+        function addTask() {
+            let taskInput = document.getElementById("taskInput");
+            let taskText = taskInput.value.trim();
+
+            if (taskText === "") return;
+
+            let now = new Date();
+            let startTime = now.toLocaleTimeString(); // Get start time
+
+            let li = document.createElement("li");
+            li.innerHTML = `<div>
+                                <input type='checkbox' class = "input2 "onclick='toggleTask(this)'> 
+                                <span>${taskText}</span>
+                                <span class="time">[Started: ${startTime}]</span>
+                            </div> 
+                            <div>
+                                <button class='task-btn' onclick="editTask(this)">✏️</button>
+                                <button class='task-btn' onclick="removeTask(this)">❌</button>
+                            </div>`;
+
+            document.getElementById("taskList").appendChild(li);
+            taskInput.value = "";
+        }
+
+        function removeTask(button) {
+            button.parentElement.parentElement.remove();
+        }
+
+        function toggleTask(checkbox) {
+            let task = checkbox.nextElementSibling;
+            let timeSpan = checkbox.parentElement.querySelector(".time");
+
+            if (checkbox.checked) {
+                let now = new Date();
+                let completeTime = now.toLocaleTimeString(); // Get completion time
+                task.classList.add("completed");
+                timeSpan.innerText += ` [Completed: ${completeTime}]`;
+            } else {
+                task.classList.remove("completed");
+                timeSpan.innerText = timeSpan.innerText.split(" [Completed:")[0]; // Remove completion time
+            }
+        }
+
+        function editTask(button) {
+            let task = button.parentElement.parentElement.querySelector("span");
+            let newTaskText = prompt("Edit your task", task.innerText);
+            if (newTaskText) {
+                task.innerText = newTaskText;
+            }
+        }
+
+        function toggleMode() {
+            document.body.classList.toggle("dark-mode");
+            let modeButton = document.querySelector(".toggle-mode");
+            modeButton.innerText = document.body.classList.contains("dark-mode") ? "Light Mode" : "Dark Mode";
+        }
+    </script>
+</body>
+
+</html>

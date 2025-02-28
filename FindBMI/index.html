@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>BMI Calculator</title>
+</head>
+<style>
+    body {
+        display: grid;
+        justify-content: center;
+        background: rgb(62, 173, 84);
+
+    }
+
+    .guide {
+        display: block;
+        width: fit-content;
+        height: auto;
+        padding: 2px;
+        border: solid rebeccapurple 3px;
+    }
+
+    .input {
+        display: block;
+        padding: 2px;
+        font-size: large;
+        font-weight: bold;
+        font-style: oblique
+    }
+
+    button {
+        
+        font-size: large;
+        border-radius: 5px;
+        border: solid rgb(58, 35, 188);
+    }
+</style>
+
+<body>
+    <h1>BMI Calculator</h1>
+    <form class="form">
+
+        <span class="input">Enter your Height in(cm): <input id="Height" type="text"></span>
+        <span class="input">Enter your Weight in(kg): <input id="Weight" type="text"></span>
+        <button id="results">Result</button>
+    </form>
+
+    <h2>BMI weight guide</h2>
+    <div class="guide">
+
+        <p>Under Weight = Less than 18.6</p>
+        <p>Normal Range = 18.6 and 24.9</p>
+        <p>Overweight = Greater than 24.9</p>
+    </div>
+</body>
+<script>
+    const form = document.querySelector('form')
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const weight = parseFloat(document.querySelector('#Weight').value);
+        const height = parseFloat(document.querySelector('#Height').value);
+
+        // console.log(weight)
+        // console.log(height)
+        // console.log(height + weight)
+        if (height === '' || height < 0 || isNaN(height)) {
+        results.innerHTML = `Please give a valid height ${height}`;
+      } else if (weight === '' || weight < 0 || isNaN(weight)) {
+        results.innerHTML = `Please give a valid weight ${weight}`;
+      } else {
+        const bmi = (weight / ((height * height) / 10000)).toFixed(2);
+        //show the result
+        results.innerHTML = `<span>${bmi}</span>`;
+      }
+    })
+
+</script>
+
+</html>

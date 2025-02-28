@@ -1,0 +1,257 @@
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #007bff;
+    --background-light: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    --background-dark: linear-gradient(135deg, #232526, #414345);
+    --container-light: rgba(255, 255, 255, 0.7);
+    --container-dark: rgba(0, 0, 0, 0.7);
+    --text-light: #333;
+    --text-dark: #f0f0f0;
+    --task-light: linear-gradient(135deg, #ff758c, #ff7eb3);
+    --task-dark: linear-gradient(135deg, #232526, #414345);
+    --shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: var(--background-light);
+    transition: background 0.5s ease-in-out;
+    position: relative;
+}
+
+/* Glassmorphism effect for the container */
+.container {
+    background: var(--container-light);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    width: 510px;
+    text-align: center;
+    transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    background: linear-gradient(90deg, #ff6a00, #ee0979);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+input {
+    width: 70%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    outline: none;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.add-btn {
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: var(--shadow);
+}
+
+.add-btn:hover {
+    background: linear-gradient(135deg, #0072ff, #00c6ff);
+    transform: scale(1.05);
+}
+
+/* Task list */
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+li {
+    padding: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--task-light);
+    color: white;
+    margin: 8px 0;
+    border-radius: 8px;
+    transition: background 0.3s, transform 0.2s ease-in-out;
+    box-shadow: var(--shadow);
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+li:hover {
+    transform: scale(1.03);
+}
+
+li div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+li span {
+    font-size: 16px;
+}
+
+/* Custom Checkbox */
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-light);
+}
+
+/* Hide Default Checkbox */
+.custom-checkbox input {
+    display: none;
+}
+
+/* Custom Checkbox Appearance */
+.custom-checkbox .checkmark {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--primary-color);
+    border-radius: 6px;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    background: rgba(255, 255, 255, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.4);
+}
+
+/* Checkmark Tick */
+.custom-checkbox .checkmark::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--primary-color);
+    border-radius: 3px;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.2s ease-in-out;
+}
+
+/* Checked State */
+.custom-checkbox input:checked + .checkmark {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+}
+
+/* Show Checkmark when Checked */
+.custom-checkbox input:checked + .checkmark::after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Hover Effect */
+.custom-checkbox:hover .checkmark {
+    box-shadow: 0 0 12px rgba(0, 255, 0, 0.6);
+    transform: scale(1.1);
+}
+
+/* Dark Mode */
+.dark-mode {
+    background: var(--background-dark);
+    color: var(--text-dark);
+}
+
+.dark-mode .container {
+    background: var(--container-dark);
+}
+
+.dark-mode li {
+    background: var(--task-dark);
+    color: var(--text-dark);
+}
+
+.dark-mode .custom-checkbox {
+    color: var(--text-dark);
+}
+
+.dark-mode .custom-checkbox .checkmark {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 5px rgba(0, 150, 255, 0.5);
+}
+
+.dark-mode .custom-checkbox input:checked + .checkmark {
+    background: var(--secondary-color);
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 10px rgba(0, 150, 255, 0.8);
+}
+
+/* Task Buttons */
+.task-btn {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.task-btn:hover {
+    transform: scale(1.2);
+}
+
+/* Mode Toggle Button */
+.toggle-mode {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #ff416c, #301cc4);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.3s ease-in-out;
+    box-shadow: var(--shadow);
+}
+
+.toggle-mode:hover {
+    background: linear-gradient(135deg, #ff4b2b, #5030c4);
+    transform: scale(1.05);
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
