@@ -45,12 +45,15 @@ def decode_message_from_image(image_path):
     decoded_message = ""
     binary_string = ""
     char_length = 9
-
+    y=1
     # Iterate over the pixels to extract the binary data
     for i in range(height):
         for j in range(width):
             pixel = pixels[j, i]
             for color in pixel:
+                
+                print(y)
+                y=y+1
                 # Append the least significant bit of the color to the binary string
                 binary_string += str(color % 2)
                 if len(binary_string) == char_length:
