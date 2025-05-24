@@ -33,10 +33,10 @@ import json
 
 def station_train_stop():
 #     # no of trains stops in the railway station
-    url= "https://indianrailapi.com/api/v2/AllTrainOnStation/apikey/e4d438952802b5eb15b4003e767baded/StationCode/kota/"
+    url= "https://indianrailapi.com/api/v2/AllTrainOnStation/apikey/e4d438952802b5eb15b4003e767baded/StationCode/DMO/"
     data = requests.get(url).text
     A=json.loads(data)
-    print(A)
+    # print(A)
     print(1,">>",A["Trains"][0])
     for i in range(0,len(A["Trains"])):
         print(i+1,">>",A["Trains"][i])
@@ -45,11 +45,11 @@ station_train_stop()
 # train_location()
 # import requests
 # import json
-url= "https://indianrailapi.com/api/v2/TrainNumberToName/apikey/e4d438952802b5eb15b4003e767baded/TrainNumber/20971/"
-# url =""
-data = requests.get(url).text
-A=json.loads(data)
-print(A)
+# url= "https://indianrailapi.com/api/v2/TrainNumberToName/apikey/e4d438952802b5eb15b4003e767baded/TrainNumber/20971/"
+# # url =""
+# data = requests.get(url).text
+# A=json.loads(data)
+# print(A)
 
 
 

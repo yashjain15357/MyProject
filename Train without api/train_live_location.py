@@ -49,7 +49,7 @@ def train_location():
     
     # If the data isn't found, let the user know that the train has finished its journey
     except KeyError:
-        print(f"The train {train_no} has reached its destination.")
+        print(f"The train {train_no} has reached its destination or some error present.")
 
 # Call the function to check the train's status
 train_location()
