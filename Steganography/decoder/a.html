@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Steganography Decoder</title>
+  <style>
+    #dropArea {
+      width: 300px;
+      height: 200px;
+      border: 2px dashed #ccc;
+      border-radius: 10px;
+      text-align: center;
+      line-height: 200px;
+      color: #aaa;
+      margin-bottom: 10px;
+    }
+    #dropArea.hover {
+      border-color: #333;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<div id="dropArea">Drop PNG Image Here</div>
+<input type="file" id="imageInput" accept="image/png" />
+<canvas id="canvas" style="display:none;"></canvas>
+<button onclick="decode()">Decode Message</button>
+
+<script>
+const dropArea = document.getElementById("dropArea");
+const imageInput = document.getElementById("imageInput");
+
+// Prevent default behaviors for drag-and-drop
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+  dropArea.addEventListener(eventName, e => {
+    e.preventDefault();
+    e.stopPropagation();
+  });
+});
+
+// Highlight area on drag
+['dragenter', 'dragover'].forEach(eventName => {
+  dropArea.addEventListener(eventName, () => dropArea.classList.add('hover'));
+});
+
+// Remove highlight
+['dragleave', 'drop'].forEach(eventName => {
+  dropArea.addEventListener(eventName, () => dropArea.classList.remove('hover'));
+});
+
+// Handle dropped files
+dropArea.addEventListener('drop', e => {
+  const files = e.dataTransfer.files;
+  if (files.length && files[0].type === 'image/png') {
+    imageInput.files = files;
+    handleImageInput(files[0]);
+  } else {
+    alert("Only PNG files are supported.");
+  }
+});
+
+// Load image from file input
+imageInput.addEventListener('change', function (e) {
+  const file = e.target.files[0];
+  handleImageInput(file);
+});
+
+let ctx = null;
+let canvas = document.getElementById('canvas');
+let imageData = null;
+
+function handleImageInput(file) {
+  const img = new Image();
+  ctx = canvas.getContext('2d');
+
+  img.onload = function () {
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage(img, 0, 0);
+    imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  };
+
+  img.src = URL.createObjectURL(file);
+}
+
+const binaryToChar = {
+  "001000001": "A", "001000010": "B", "001000011": "C", "001000100": "D",
+  "001000101": "E", "001000110": "F", "001000111": "G", "001001000": "H",
+  "001001001": "I", "001001010": "J", "001001011": "K", "001001100": "L",
+  "001001101": "M", "001001110": "N", "001001111": "O", "001010000": "P",
+  "001010001": "Q", "001010010": "R", "001010011": "S", "001010100": "T",
+  "001010101": "U", "001010110": "V", "001010111": "W", "001011000": "X",
+  "001011001": "Y", "001011010": "Z", "000110000": "0", "000110001": "1",
+  "000110010": "2", "000110011": "3", "000110100": "4", "000110101": "5",
+  "000110110": "6", "000110111": "7", "000111000": "8", "000111001": "9",
+  "000100000": " ", "001111110": "~", "000100001": "!", "001000000": "@",
+  "000100011": "#", "000100100": "$", "000100101": "%", "001011110": "^",
+  "000100110": "&", "000101010": "*", "000101000": "(", "000101001": ")",
+  "001011111": "_", "000101011": "+", "000101101": "-", "000111101": "=",
+  "001111011": "{", "001111101": "}", "001011011": "[", "001011101": "]",
+  "001111100": "|", "001011100": "\\", "000111010": ":", "000111011": ";",
+  "000100010": "\"", "000100111": "'", "000111100": "<", "000111110": ">",
+  "000111111": "?", "000101100": ",", "000101110": ".", "000101111": "/",
+  "001100000": "`"
+};
+
+function decodeMessageFromCanvas(canvas) {
+  const ctx = canvas.getContext('2d');
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const data = imageData.data;
+
+  let decodedMessage = "";
+  let binaryString = "";
+  const charLength = 9;
+
+  for (let i = 0; i < data.length; i += 4) {
+    // Only read RGB values (skip alpha channel)
+    for (let j = 0; j < 3; j++) {
+      binaryString += (data[i + j] & 1).toString();
+
+      if (binaryString.length === charLength) {
+        if (binaryString === "111111111") {
+          decodedMessage = decodedMessage.trim();
+          alert("Decoded message: " + decodedMessage.toLowerCase().replace(/^\w/, c => c.toUpperCase()));
+          return;
+        }
+
+        if (binaryToChar[binaryString]) {
+          decodedMessage += binaryToChar[binaryString];
+        } else {
+          decodedMessage += "?";
+        }
+
+        binaryString = "";
+      }
+    }
+  }
+
+  alert("Decoded message: " + decodedMessage.toLowerCase().replace(/^\w/, c => c.toUpperCase()));
+}
+
+function decode() {
+  if (!imageData) {
+    alert("Please upload an image first!");
+    return;
+  }
+
+  decodeMessageFromCanvas(canvas);
+}
+</script>
+
+</body>
+</html>

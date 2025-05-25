@@ -1,0 +1,122 @@
+body {
+    /* background: radial-gradient(circle at top left, #0f0f0f, #1a1a1a); */
+    background-image: url("Premium Vector _ Abstract technology ui futuristic.jpeg");
+    font-family: 'Orbitron', 'Segoe UI', sans-serif;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+.container {
+    background: linear-gradient(145deg, rgba(0, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1), 0 0 8px rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 255, 255, 0.15);
+    transition: transform 0.3s ease-in-out;
+}
+
+.container:hover {
+    transform: scale(1.01);
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 15px;
+    color: #0f160f;
+    text-shadow: 0 0 5px #00ffff, 0 0 15px #00ffff;
+}
+
+input[type="file"],
+textarea,
+button {
+    margin: 10px 0;
+    padding: 8px 12px;
+    font-size: 0.9em;
+    width: 85%;
+    max-width: 400px;
+    border-radius: 10px;
+    outline: none;
+    transition: 0.3s ease;
+    font-family: inherit;
+    box-shadow: 0 0 6px rgba(0, 255, 255, 0.1);
+}
+
+textarea {
+    height: 80px;
+    resize: vertical;
+    background: #111;
+    color: #00ffff;
+    border: 1px solid #00cccc;
+}
+
+button {
+    background: linear-gradient(to right, #00ffff, #007fff);
+    border: none;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 8px #00ffff;
+}
+
+button:hover {
+    background: linear-gradient(to right, #00cccc, #005f9f);
+    box-shadow: 0 0 12px #00ffff;
+}
+
+#canvas {
+    display: none;
+}
+
+a {
+    display: block;
+    margin-top: 15px;
+    color: #00ffff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-shadow: 0 0 5px #00ffff;
+}
+
+#dropArea {
+    border: 2.5px dashed #00ffff;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px auto;
+    max-width: 420px;
+    color: #cccccc;
+    background: rgba(0, 255, 255, 0.02);
+    transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    animation: pulseBorder 2s infinite ease-in-out;
+}
+
+#dropArea.hover {
+    background-color: rgba(0, 255, 255, 0.1);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+input[type="file"] {
+    background-color: #222;
+    border: 1px solid #00cccc;
+    color: #00ffff;
+}
+
+@keyframes pulseBorder {
+    0% {
+        box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 12px rgba(0, 255, 255, 0.6);
+    }
+
+    100% {
+        box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+    }
+}

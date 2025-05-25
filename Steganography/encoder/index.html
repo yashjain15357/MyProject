@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Image Steganography Encoder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Steganography Encoder</h1>
+
+        <!-- Drag & Drop Area -->
+
+        <div id="dropArea">Drag & Drop Image Here or Click Below to Upload <input type="file" id="imageInput"
+                accept="image"><br></div>
+
+
+        <!-- Secret Message -->
+        <textarea id="message" placeholder="Enter your message..."></textarea><br>
+
+        <!-- Encode and Download -->
+        <button onclick="encode()" id="encode_message">Encode & Download</button>
+        <a id="downloadLink" style="display:none;" download="encoded_image.png">Download Encoded Image</a>
+
+        <!-- Hidden Canvas -->
+        <canvas id="canvas"></canvas>
+    </div>
+ <script src="script.js"></script>
+</body>
+
+</html>
