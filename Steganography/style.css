@@ -34,7 +34,7 @@ body {
 .container:hover {
   box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4), 0 0 20px rgba(0, 255, 255, 0.3);
   transform: scale(1.02);
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgb(255, 255, 255);
   backdrop-filter: blur(4px);
 }
 .container p,

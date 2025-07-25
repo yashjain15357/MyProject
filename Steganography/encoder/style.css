@@ -1,6 +1,21 @@
+
+/* Base Styles */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    /* background: radial-gradient(circle at top left, #0f0f0f, #1a1a1a); */
+    min-height: 100vh; /* Ensures it fills at least the viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-image: url("Premium Vector _ Abstract technology ui futuristic.jpeg");
+    background-size: cover;
+    background-position: center;
     font-family: 'Orbitron', 'Segoe UI', sans-serif;
     color: #f2f2f2;
     text-align: center;
@@ -8,115 +23,160 @@ body {
     overflow-x: hidden;
 }
 
+/* Container */
 .container {
-    background: linear-gradient(145deg, rgba(0, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-    border-radius: 15px;
-    padding: 20px;
+    background: linear-gradient(145deg, rgba(139, 180, 186, 0.05), rgba(255, 255, 255, 0.02));
+    border-radius: 20px;
+    padding: 30px 20px;
     max-width: 600px;
-    margin: auto;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1), 0 0 8px rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(0, 255, 255, 0.15);
-    transition: transform 0.3s ease-in-out;
+    margin: 20px;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.15), 0 0 10px rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
-
 .container:hover {
-    transform: scale(1.01);
+    transform: scale(1.015);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.25);
 }
 
+/* Headings */
 h1 {
-    font-size: 2em;
-    margin-bottom: 15px;
+    font-size: 2.2em;
+    margin-bottom: 20px;
     color: #0f160f;
     text-shadow: 0 0 5px #00ffff, 0 0 15px #00ffff;
+    animation: glowText 3s ease-in-out infinite alternate;
 }
 
+/* Inputs and Buttons */
 input[type="file"],
 textarea,
 button {
-    margin: 10px 0;
-    padding: 8px 12px;
-    font-size: 0.9em;
+    margin: 12px 0;
+    padding: 10px 15px;
+    font-size: 1em;
     width: 85%;
-    max-width: 400px;
-    border-radius: 10px;
+    max-width: 420px;
+    border-radius: 12px;
     outline: none;
     transition: 0.3s ease;
     font-family: inherit;
     box-shadow: 0 0 6px rgba(0, 255, 255, 0.1);
 }
 
+/* Textarea Styling */
 textarea {
-    height: 80px;
+    height: 100px;
     resize: vertical;
     background: #111;
     color: #00ffff;
     border: 1px solid #00cccc;
 }
 
+/* Button Styling */
 button {
-    background: linear-gradient(to right, #00ffff, #007fff);
+    background: linear-gradient(90deg, #00ffff, #007fff);
     border: none;
     color: #000;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 0 8px #00ffff;
+    box-shadow: 0 0 10px #00ffff;
 }
-
 button:hover {
-    background: linear-gradient(to right, #00cccc, #005f9f);
-    box-shadow: 0 0 12px #00ffff;
+    background: linear-gradient(90deg, #00cccc, #005f9f);
+    box-shadow: 0 0 16px #00ffff;
 }
 
-#canvas {
-    display: none;
-}
-
-a {
-    display: block;
-    margin-top: 15px;
-    color: #00ffff;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-a:hover {
-    text-shadow: 0 0 5px #00ffff;
-}
-
+/* Drop Area Styling */
 #dropArea {
     border: 2.5px dashed #00ffff;
-    border-radius: 15px;
-    padding: 20px;
-    margin: 15px auto;
-    max-width: 420px;
+    border-radius: 18px;
+    padding: 25px;
+    margin: 20px auto;
+    max-width: 450px;
     color: #cccccc;
-    background: rgba(0, 255, 255, 0.02);
+    background: rgba(0, 255, 255, 0.03);
     transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     animation: pulseBorder 2s infinite ease-in-out;
 }
-
 #dropArea.hover {
     background-color: rgba(0, 255, 255, 0.1);
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
 }
 
+/* File Input */
 input[type="file"] {
-    background-color: #222;
+    background-color: #1b1b1b;
     border: 1px solid #00cccc;
     color: #00ffff;
 }
 
+/* Hidden Canvas */
+#canvas {
+    display: none;
+}
+
+/* Links */
+a {
+    display: block;
+    margin-top: 20px;
+    color: #00ffff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+a:hover {
+    text-shadow: 0 0 8px #00ffff;
+    transform: scale(1.05);
+}
+
+/* Animations */
 @keyframes pulseBorder {
     0% {
         box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
     }
-
     50% {
-        box-shadow: 0 0 12px rgba(0, 255, 255, 0.6);
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
     }
-
     100% {
         box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+    }
+}
+
+@keyframes glowText {
+    from {
+        text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+    }
+    to {
+        text-shadow: 0 0 10px #00ffff, 0 0 20px #007fff;
+    }
+}
+
+/* Responsive Queries */
+/* Tablets and smaller desktops */
+
+/* Mobile Devices */
+
+
+/* Very Small Screens */
+@media (max-width: 480px) {
+    
+
+    h1 {
+        font-size: 1.3em;
+    }
+
+    
+
+    input[type="file"],
+    textarea,
+    button {
+        font-size: 0.75em;
+    }
+    .container {
+        padding: 15px;
+        max-width: 98%;
+        min-height: 400px;  /* smaller but still bigger height */
     }
 }

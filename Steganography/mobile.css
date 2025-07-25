@@ -1,0 +1,153 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  background-image: url("Premium Vector _ Abstract technology ui futuristic.jpeg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 10px;
+}
+
+.container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 100%;
+  min-height: auto;
+  padding: 20px;
+}
+
+.container p,
+.container li {
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 8px 0;
+  color: #ff0303;
+}
+
+.fa-brands {
+  color: #2575fc;
+}
+
+.container span {
+  font-size: 10px;
+}
+
+.container a {
+  color: #2575fc;
+  font-size: 12px;
+  text-decoration: none;
+  margin: 12px 0 8px;
+}
+
+.container a:hover {
+  color: #6a11cb;
+}
+
+.container button {
+  background-color: #2575fc;
+  color: #ffffff;
+  font-size: 13px;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.container button.hidden {
+  font-size: 13px;
+  background-color: rgba(0, 0, 0, 0.655);
+  border: 2px solid #3a08e092;
+  color: #fffb00;
+}
+
+.container form {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px;
+  text-align: center;
+}
+
+.form-container {
+  width: 100%;
+}
+
+.sign-in,
+.sign-up {
+  width: 100%;
+}
+
+.social-icons {
+  margin: 15px 0;
+}
+
+.social-icons a {
+  border: 2px solid #69ab69c7;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5px;
+  width: 28px;
+  height: 28px;
+}
+
+.social-icons a:hover {
+  background-color: #69ab69c7;
+  color: #ffffff;
+  box-shadow: 0 0 6px 2px #69ab69c7;
+}
+
+.toggle-container {
+
+  display: none;
+}
+
+
+
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  .container {
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  .container p,
+  .container li {
+    font-size: 12px;
+  }
+
+  .container button {
+    font-size: 12px;
+    padding: 8px 20px;
+  }
+
+  .social-icons a {
+    width: 26px;
+    height: 26px;
+  }
+
+ 
+}
+

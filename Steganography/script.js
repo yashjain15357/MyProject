@@ -8,3 +8,10 @@ registerBtn.addEventListener('click', () => {
 loginBtn.addEventListener('click', () => {
     container.classList.remove("active");
 });
+
+if (window.innerWidth <= 600) {
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'mobile.css';  // your mobile CSS file path
+    document.head.appendChild(link);
+  }
