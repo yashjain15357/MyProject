@@ -32,86 +32,81 @@ def get_char_to_binary_map():
     "\"": "000100010", "'": "000100111", "<": "000111100", ">": "000111110",
     "?": "000111111", ",": "000101100", ".": "000101110", "/": "000101111", "`": "001100000"
   }
-
 def encode_message_in_image(image_path, output_path, message):
-  """Encodes a message into an image and saves the result."""
-  # Open the image file
-  image = Image.open(image_path)
-  pixels = image.load()
-  width, height = image.size
 
-  # Define the character-to-binary mapping
-  char_to_binary = get_char_to_binary_map()
+    image = Image.open(image_path).convert("RGB")
+    pixels = image.load()
+    width, height = image.size
 
-  # Prepare the message
-  message1 = message
-  message = message.upper()
- 
-  # Calculate the number of bits needed to encode the message
-  total_bits_needed = len(message) * 9  # 9 bits per character
-  total_pixels_needed = total_bits_needed // 3 + (total_bits_needed % 3 > 0)    # 3 bits per pixel
+    char_to_binary = get_char_to_binary_map()
 
-  if total_pixels_needed > width * height:
-    raise ValueError("The image is too small to encode the entire message.")
+    # message = message.upper()
 
-  # Encode the message into the image pixels
-  bit_index = 0
-  char_index = 0
-  for i in range(height):
-    for j in range(width):
-           if char_index >= len(message):
-                break
-     
-           pixel = list(pixels[j, i])
+    # ---------- build full bit stream ----------
+    try:
+        # bit_stream = "".join(char_to_binary[ch] for ch in message)
+        bit_stream=""
+        for ch in message:
+            temp_ch = ch
+            if(ch.upper()!= temp_ch):
+                char_binary = list(char_to_binary[ch.upper()])
 
-           # if message[char_index]== (message1[char_index]):
-           #          print(message1[char_index])
-           #          print("yash")
+                char_binary[0]='1'
+                bit_stream += "".join(char_binary)
+                # print(char_binary)
 
-           binary_representation = char_to_binary[message[char_index]]
+            else:
+              bit_stream += char_to_binary[ch]
+              # print(char_to_binary[ch])
 
-           for color_index in range(3):
-                if bit_index < 9:
-                  bit = int(binary_representation[bit_index])
-                  if (bit == 1 and pixel[color_index] % 2 == 0) or (bit == 0 and pixel[color_index] % 2 != 0):
-                    if pixel[color_index] < 255:
-                           pixel[color_index] += 1
+
+    except KeyError as e:
+        raise ValueError(f"Unsupported character: {e}")
+
+    # end marker (9 bits)
+    bit_stream += "111111111"
+
+    total_bits = len(bit_stream)
+
+    if total_bits > width * height * 3:
+        raise ValueError("Image is too small")
+
+    bit_pos = 0
+
+    for y in range(height):
+        for x in range(width):
+
+            if bit_pos >= total_bits:
+                image.save(output_path)
+                print("Message encoded successfully")
+                return
+
+            r, g, b = pixels[x, y]
+            colors = [r, g, b]
+
+            for c in range(3):
+                if bit_pos >= total_bits:
+                    break
+
+                bit = int(bit_stream[bit_pos])
+
+                if colors[c] % 2 != bit:
+                    if colors[c] == 255:
+                        colors[c] -= 1
                     else:
-                           pixel[color_index] -= 1
-                  bit_index += 1
-                else:
-                  break
+                        colors[c] += 1
 
-           pixels[j, i] = tuple(pixel)
+                bit_pos += 1
 
-           if bit_index >= 9:
-                bit_index = 0
-                char_index += 1
+            pixels[x, y] = tuple(colors)
 
-    if char_index >= len(message):
-           break
-
-  # Add an end-of-message marker ("111111111")
-  print(bit_index)
-  if bit_index > 0:
-    pixel = list(pixels[j, i])
-    for color_index in range(3):
-           if bit_index < 9:
-                if pixel[color_index] % 2 == 0:
-                  pixel[color_index] += 1
-                bit_index += 1
-           else:
-                break
-    pixels[j, i] = tuple(pixel)
-
-  # Save the modified image
-  image.save(output_path)
-  print(f"Message encoded and saved to {output_path}")
+    image.save(output_path)
+    print("Message encoded successfully")
 
 def main():
   """Main function to run the script."""
   image_path = choose_file()
-  output_path = 'decode_image.png'
+  output_path = 'Downloads/decode_image.png'
   message = input("Enter your string: ").strip()
   encode_message_in_image(image_path, output_path, message)
 

@@ -33,44 +33,75 @@ binary_to_char = {
     "000100010": "\"", "000100111": "'", "000111100": "<", "000111110": ">",
     "000111111": "?", "000101100": ",", "000101110": ".", "000101111": "/","001100000":"`"
 }
-
 def decode_message_from_image(image_path):
-    """Decodes a message from an image."""
-    # Open the image file
-    image = Image.open(image_path)
+
+    image = Image.open(image_path).convert("RGB")
     pixels = image.load()
     width, height = image.size
 
-    # Initialize variables
-    decoded_message = ""
-    binary_string = ""
-    char_length = 9
+    bits = []
+    decoded_chars = []
 
-    # Iterate over the pixels to extract the binary data
-    for i in range(height):
-        for j in range(width):
-            pixel = pixels[j, i]
-            for color in pixel:
-                # Append the least significant bit of the color to the binary string
-                binary_string += str(color % 2)
-                if len(binary_string) == char_length:
-                    if binary_string in binary_to_char:
-                        decoded_message += binary_to_char[binary_string]
-                        binary_string = ""
+    END_MARKER = "111111111"
+    CHAR_LEN = 9
+
+    for y in range(height):
+        for x in range(width):
+
+            r, g, b = pixels[x, y]
+
+            for value in (r, g, b):
+
+                bits.append(str(value & 1))
+
+                if len(bits) == CHAR_LEN:
+
+                    block = "".join(bits)
+                    bits.clear()
+
+                    # first check end marker
+                    if block == END_MARKER:
+                        message = "".join(decoded_chars)
+                        print("Decoded message:", message)
+                        return
+                    
+                    
+                    if(block[0]=='1'):
+                        temp_block = list(block)
+                        temp_block[0] = '0'
+                        temp_block = "".join(temp_block)
+
+                        ch = binary_to_char.get(temp_block)
+
+                        if ch is not None:
+                            ch = ch.lower()
+
+                        
+                        # print(ch)
                     else:
-                        # Check for end of message indicator
-                        if binary_string == "111111111":
-                            decoded_message = decoded_message.strip()
-                            print("Decoded message:", decoded_message.lower().capitalize())
-                            return
+                        ch = binary_to_char.get(block)
+                        # print(ch)
 
-    # If the loop completes without finding an end of message indicator
-    print("Decoded message:", decoded_message.lower().capitalize())
+                    if ch is not None:
+                        decoded_chars.append(ch)
+                    else:
+                        # unknown pattern → ignore safely
+                        pass
+
+    message = "".join(decoded_chars)
+    print("Decoded message:", message)
+
+def choose_file():
+    root = tk.Tk()
+    root.withdraw()
+    file_path = filedialog.askopenfilename()
+    root.destroy()
+    return file_path
 
 def main():
-    """Main function to run the script."""
-    image_path = 'output_image6.png'
-    decode_message_from_image(choose_file())
+    image_path = choose_file()
+    decode_message_from_image(image_path)
+
 
 if __name__ == "__main__":
     main()
